@@ -1,0 +1,235 @@
+/* css reset */
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+body {
+	line-height: 1;
+}
+
+ol, ul {
+	list-style: none;
+}
+
+blockquote, q {
+	quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* custom styles */
+* {
+  box-sizing: border-box;
+  font-family: 'Noto Sans Mono', monospace;
+  overscroll-behavior: none;
+}
+
+body {
+  background-color: #000;
+  font-family: 'Noto Sans Mono', monospace;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+button {
+  cursor: pointer;
+}
+
+.app-wrapper {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* snake styles */
+.snake-game-wrapper {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 90vh;
+  margin-top: 5vh;
+  padding: 0 0 10px 0;
+}
+
+.snake-heading-and-timer-wrapper {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10vh;
+  width: 600px;
+}
+
+.snake-heading {
+  border: 1px solid #28BD00;
+  border-bottom: none;
+  color: #28BD00;
+  padding: 10px 15px;
+}
+
+.snake-game-canvas {
+  border: 1px solid #28BD00 ;
+  position: relative;
+}
+
+.snake-game-canvas:focus {
+  outline: none;
+}
+
+.timer {
+  color: #28BD00;
+  font-size: 110%;
+}
+
+.game-over-modal,
+.game-instructions-modal {
+  align-items: center;
+  background-color: #000;
+  border: 1px solid #28BD00;
+  color: #28BD00;
+  display: flex;
+  flex-direction: column;
+  height: 352px;
+  justify-content: center;
+  line-height: 1.5;
+  margin-top: 152px;
+  padding: 15px;
+  position: absolute;
+  width: 600px;
+  z-index: 1;
+}
+
+.game-over-text {
+  font-size: 300%;
+}
+
+.game-instructions-paragraph {
+  text-align: justify;
+}
+
+.user-score-text {
+  font-size: 150%;
+}
+
+.snake-game-buttons-wrapper {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 30px 0;
+  width: 600px;
+}
+
+.game-button {
+  background-color: #28BD00;
+  border: 6px double #000;
+  border-radius: 8px;
+  color: #000;
+  font-size: 130%;
+  font-weight: 300;
+  padding: 10px;
+  width: 30%;
+}
+
+.game-button:hover {
+  background-color: #1F8E02;
+}
+
+.game-button:active {
+  background-color: #2FDF00;
+}
+
+.game-button:disabled {
+  background-color: #666;
+}
+
+.close-instructions-button {
+  margin-top: 30px;
+}
+
+.hidden {
+  display: none;
+}
+
+/* animation styles */
+
+@keyframes blinking {
+  0% {
+      background-color: transparent;
+  }
+  49% {
+      background-color: transparent;
+  }
+  50% {
+      background-color: #28BD00;
+  }
+}
+
+@keyframes animated-text{
+  from {
+    width: 0;
+  }
+  to {
+    width: 400px;
+  }
+}
+
+@keyframes blinker {
+  0.1% {
+    opacity: 0;
+  }
+  39.9% {
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* media queries */
+  @media only screen and (max-width: 885px) {
+    .command-line-section-wrapper {
+      margin-top: 18vh;
+    }
+    .snake-game-wrapper {
+      margin-top: 18vh;
+    }
+  }

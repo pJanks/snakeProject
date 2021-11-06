@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100;200;300;400;500;600;700;800;900&display=swap">
+    <link rel="stylesheet" href="styles.css">
+    <title>snake_</title>
+  </head>
+  <body>
+    <main class="app-wrapper">
+      <section class="snake-game-wrapper section-wrapper snake">
+        <div class="heading-and-canvas-wrapper">
+          <div class="snake-heading-and-timer-wrapper">
+            <h4 class="snake-heading subheading">
+              SNAKE: RED && BLUE PILLS
+            </h4>
+            <div class="timer">00:00:00</div>
+          </div>
+          <x-game-over-modal />
+          <x-game-instructions-modal />
+          <canvas id="snake-game-canvas" class="snake-game-canvas" tabindex="1" width="600" height="350">
+            Your browser does not support canvas element.
+          </canvas>
+        </div>
+        <div class="snake-game-buttons-wrapper">
+          <button class="start-or-reset-game-button game-button">Start</button>
+          <button class="view-instructions-button game-button">Instructions</button>
+          <button class="view-leaderboard-button game-button" disabled>High Scores</button>
+        </div>
+      </section>
+      <section class ="game-over-modal hidden">
+        <h2 class="game-over-text game-over">GAME OVER!</h2>
+        <h2 class="user-score-text game-over">YOUR SCORE: <span class="score"></span></h2>
+      </section>
+      <section class="game-instructions-modal hidden">
+        <p class="game-instructions-paragraph">
+          The game can be started by clicking the 'Start' button. Upon 'GAME OVER', the board can be reset by clicking the 'Reset' button, and a new game can be intialized by, again, clicking the 'Start' button. You can move left with the 'A' key, up with the 'W' key, right with the 'D' key, and down with the 'S' key. The objective is to consume as many of the pills as possible without colliding with the walls or with your own tail. You will be declared a winner after you accumulate 1250 pills. Good luck!
+        </p>
+        <button class="close-instructions-button game-button">Close</button>
+      </section>
+    </main>
+  </body>
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="scripts.js"></script>
+</html>
