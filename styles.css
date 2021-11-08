@@ -150,7 +150,7 @@ button {
 .snake-game-buttons-wrapper {
   align-items: center;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   padding: 30px 0;
   width: 600px;
 }
@@ -163,7 +163,7 @@ button {
   font-size: 130%;
   font-weight: 300;
   padding: 10px;
-  width: 30%;
+  width: 35%;
 }
 
 .game-button:hover {
@@ -185,51 +185,3 @@ button {
 .hidden {
   display: none;
 }
-
-/* animation styles */
-
-@keyframes blinking {
-  0% {
-      background-color: transparent;
-  }
-  49% {
-      background-color: transparent;
-  }
-  50% {
-      background-color: #28BD00;
-  }
-}
-
-@keyframes animated-text{
-  from {
-    width: 0;
-  }
-  to {
-    width: 400px;
-  }
-}
-
-@keyframes blinker {
-  0.1% {
-    opacity: 0;
-  }
-  39.9% {
-    opacity: 0;
-  }
-  60% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-/* media queries */
-  @media only screen and (max-width: 885px) {
-    .command-line-section-wrapper {
-      margin-top: 18vh;
-    }
-    .snake-game-wrapper {
-      margin-top: 18vh;
-    }
-  }

@@ -1,11 +1,24 @@
-// ----------------- SNAKE SCRIPTS -----------------
-// board dimensions are 600 x 350
-// each snake piece is 10 x 10
-// handle events for snake movement and different game state navigation
-$('.snake-game-canvas').on('keydown', (e) => setVelocities(e))
-$('.start-or-reset-game-button').on('click', (e) => HandleStartOrResetButtonClick(e))
-$('.close-instructions-button').on('click', (e) => handleCloseInstructionsButtonClick(e))
-$('.view-instructions-button').on('click', (e) => handleInstructionsButtonClick(e))
+console.log('scripts made it . . .')
+
+// board dimensions are 600px x 350px
+// each snake piece is 10px x 10px
+
+// query select DOM elements
+const snakeboard = document.querySelector('.snake-game-canvas')
+const startOrResetButton = document.querySelector('.start-or-reset-game-button')
+const closeInstructionsButton = document.querySelector('.close-instructions-button')
+const viewInstructionsButton = document.querySelector('.view-instructions-button')
+const instructionsModal = document.querySelector('.game-instructions-modal')
+const gameOverModal = document.querySelector('.game-over-modal')
+const finalScore = document.querySelector('.final-score')
+
+// add event listeners
+
+
+snakeboard.addEventListener('keydown', (e) => setVelocities(e))
+startOrResetButton.addEventListener('click', (e) => HandleStartOrResetButtonClick(e))
+closeInstructionsButton.addEventListener('click', (e) => handleCloseInstructionsButtonClick(e))
+viewInstructionsButton.addEventListener('click', (e) => handleInstructionsButtonClick(e))
 
 // declare empty variables to determine different states of gameplay
 let running = false,
@@ -24,22 +37,24 @@ pillXValue,
 pillYValue,
 interval
 
-// timer scripts
+// create and print a table to the console of all default settings onload
+const tableObject = {
+  intervalRunsIn: `${timeout} ms`,
+  nextPillIsWorth: points,
+  score,
+  turn,
+}
 
-$(document).ready(() => {
-  const tableObject = {
-    intervalRunsIn: `${timeout} ms`,
-    nextPillIsWorth: points,
-    score,
-    turn,
-  }
-  console.table(tableObject)
-})
+window.onload = () => console.table(tableObject)
 
+// fn to pad hrs, mins, secs with zeros where there is less than 10 for a consistent look
 const padTimes = (unit) => (unit < 10 ? '0' : '') + unit
 
 const adjustTimes = () => {
+  // add a second
   seconds++
+
+  // increment minutes at 60 seconds and reset seconds
   if (seconds === 60) {
     minutes++
     seconds = 0
@@ -48,6 +63,7 @@ const adjustTimes = () => {
     console.log('extra points added for a minute')
   }
 
+  // increment hours at 60 minutes and reset seconds and minutes
   if (minutes === 60) {
     hours++
     minutes = 0
@@ -57,17 +73,20 @@ const adjustTimes = () => {
     padTimes(seconds)
     console.log('extra points added for an hour')
   }
-  $('.timer').text(`${padTimes(hours)}:${padTimes(minutes)}:${padTimes(seconds)}`)
+  
+  // reflect current time on DOM
+  document.querySelector('.timer').innerText = `${padTimes(hours)}:${padTimes(minutes)}:${padTimes(seconds)}`
 }
 
+// choose red as initial pill color
 let pillColor = '#FF0C00'
 
 // declare constants for board color details
 const boardBackground = '#000'
 const snakeColor = '#28BD00'
 
-
-// save initial snake state for reuse on reset
+// fn to return array of initial snake state for reuse on reset
+// snake always begins in the middle of the board
 const getInitialSnake = () => [
   {x: 300, y: 180},
   {x: 290, y: 180},
@@ -76,17 +95,19 @@ const getInitialSnake = () => [
   {x: 260, y: 180},
 ]
 
-// use copy for game so that you can reset to original position after end of game
+// use copy for game so that original state is unchanged and can on reset
 let snakeCopy = getInitialSnake()
 
-
-// Horizontal velocity
+// horizontal velocity, snake begins moving at ten pixels to the right
 let xVelocity = 10
 
-// Vertical velocity
+// set vertical velocity
 let yVelocity = 0
 
 // update velocities based on keypresses
+// the conditions make sure that you can't move backwards into your self
+// the keyClicked is used to make sure you cant choose another direction
+// until the after the next render of the game
 const setVelocities = (e) => {
   if (!keyClicked && !xVelocity && e.key.toLowerCase() === 'a') {
     keyClicked = true
@@ -108,34 +129,27 @@ const setVelocities = (e) => {
 }
 
 // Get the canvas element
-const snakeBoard = document.getElementById('snake-game-canvas')
+const snakeBoard = document.querySelector('.snake-game-canvas')
+
+// create a two dimensional drawing context
+const snakeBoardContext = snakeBoard.getContext('2d')
 
 // refocus on blur to prevent a user from accidentally clicking out of canvas and breaking game
-$(snakeBoard).on('blur', () => {
+snakeBoard.addEventListener('blur', () => {
  if (running) {
   snakeBoard.focus()
  }
 })
 
-// Return a two dimensional drawing context
-const snakeBoardContext = snakeBoard.getContext('2d')
-
-// reset game state and clear everything for / start a new game
+// reset everything for reset or initial start of game
 const HandleStartOrResetButtonClick = (e) => {
 
+  // reset timing
   interval ? clearInterval(interval) : null
   hours = 0
   minutes = 0
   seconds = 0
-  $('.timer').html(`${padTimes(hours)}:${padTimes(minutes)}:${padTimes(seconds)}`)
-
-  const tableObject = {
-      intervalRunsIn: `${timeout} ms`,
-      nextPillIsWorth: points,
-      score,
-      turn,
-    }
-    console.table(tableObject)
+  document.querySelector('.timer').innerHTML = `${padTimes(hours)}:${padTimes(minutes)}:${padTimes(seconds)}`
 
   // reset player status and start with original centered snake
   loser = false
@@ -146,11 +160,11 @@ const HandleStartOrResetButtonClick = (e) => {
   points = 100
   keyClicked = false
 
-  if ($(e.target).text().toLowerCase() === 'start') {
+  if (e.target.innerText.toLowerCase() === 'start') {
 
     interval = setInterval(adjustTimes, 1000)
     
-    // set game state to enable recursively calling runGame fn
+    // set game state to enable/disable recursively calling runGame fn
     reset = false
     running = true
 
@@ -158,17 +172,18 @@ const HandleStartOrResetButtonClick = (e) => {
     snakeBoard.focus()
 
     // hide instructions if they are currently displayed
-    $('.game-instructions-modal').addClass('hidden')
+    instructionsModal.classList.add('hidden')
 
     // disable instructions button during gameplay
-    $('.view-instructions-button').prop('disabled', true)
+    viewInstructionsButton.disabled = true
 
     // update button text
-    $(e.target).text('Reset')
+    e.target.innerText = 'Reset'
 
     // run app
     runGame()
-  } else if ($(e.target).text().toLowerCase() === 'reset') {
+    running = true
+  } else if (e.target.innerText.toLowerCase() === 'reset' && !running) {
 
     console.clear()
 
@@ -184,28 +199,42 @@ const HandleStartOrResetButtonClick = (e) => {
     populatePill()
 
     // enable view instructions button
-    $('.view-instructions-button').prop('disabled', false)
+    viewInstructionsButton.disabled = false
 
     // hide game over modal
-    $('.game-over-modal').addClass('hidden')
+    gameOverModal.classList.add('hidden')
 
     // update button text
-    $(e.target).text('Start')
+    e.target.innerText = 'Start'
+
+    // add snake to canvas without movement
+    drawSnake()
+  } else if (e.target.innerText.toLowerCase() === 'reset' && running) {
+    
+    console.clear()
+
+    // reset starting velocities so snake will proceed toward right of the screen
+    xVelocity = 10
+    yVelocity = 0
+
+    // update state to stop recursively calling runGame fn
+    running = false
+    reset = true
+
+    // randomly put pill on canvas
+    populatePill()
 
     // add snake to canvas without movement
     drawSnake()
   }
 }
 
-// close instructions when specifically clickIng close
-const handleCloseInstructionsButtonClick = (e) => {
-  $('.game-instructions-modal').addClass('hidden')
-}
+// close instructions when specifically clicking close
+const handleCloseInstructionsButtonClick = (e) => instructionsModal.classList.add('hidden')
 
 // toggle instructions on/off on instructions button click
-const handleInstructionsButtonClick = (e) => {
-  $('.game-instructions-modal').toggleClass('hidden')
-}
+const handleInstructionsButtonClick = (e) => instructionsModal.classList.contains('hidden') ? instructionsModal.classList.remove('hidden') : instructionsModal.classList.add ('hidden')
+
 
 // reset to blank canvas
 const clearCanvas = () => {
@@ -271,23 +300,25 @@ const moveSnake = () => {
 // runGame function called repeatedly to keep the game running
 const runGame = (e) => {
   if (loser) {
+
     // show game over modal
-    $('.game-over-modal').removeClass('hidden')
+    gameOverModal.classList.remove('hidden')
     
     // display user score on game over modal
-    $('.score').text(score)
+    finalScore.innerText = score
     
     // enable instructions button
-    $('.view-instructions-button').prop('disabled', false)
+    viewInstructionsButton.disabled = false
     
     // clear current board
     snakeBoardContext.clearRect(0, 0, snakeBoard.width, snakeBoard.height)
 
   } else if (timeout <= 50) {
+    // by the time the timeout gets this low the game is hardly playable and a winner is declared
     winner = true
   } else {
-    // run app repeatedly
-    running = true
+    
+    // repaint canvas with each call to runGame if all other conditions fail
     setTimeout(() => {
       keyClicked = false
       clearCanvas()

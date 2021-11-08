@@ -20,21 +20,18 @@
             </h4>
             <div class="timer">00:00:00</div>
           </div>
-          <x-game-over-modal />
-          <x-game-instructions-modal />
-          <canvas id="snake-game-canvas" class="snake-game-canvas" tabindex="1" width="600" height="350">
+          <canvas class="snake-game-canvas" tabindex="1" width="600" height="350">
             Your browser does not support canvas element.
           </canvas>
         </div>
         <div class="snake-game-buttons-wrapper">
           <button class="start-or-reset-game-button game-button">Start</button>
           <button class="view-instructions-button game-button">Instructions</button>
-          <button class="view-leaderboard-button game-button" disabled>High Scores</button>
         </div>
       </section>
       <section class ="game-over-modal hidden">
         <h2 class="game-over-text game-over">GAME OVER!</h2>
-        <h2 class="user-score-text game-over">YOUR SCORE: <span class="score"></span></h2>
+        <h2 class="user-score-text game-over">YOUR SCORE: <span class="final-score"></span></h2>
       </section>
       <section class="game-instructions-modal hidden">
         <p class="game-instructions-paragraph">
@@ -44,6 +41,5 @@
       </section>
     </main>
   </body>
-  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <script src="scripts.js"></script>
 </html>
