@@ -13,8 +13,6 @@ const gameOverModal = document.querySelector('.game-over-modal')
 const finalScore = document.querySelector('.final-score')
 
 // add event listeners
-
-
 snakeboard.addEventListener('keydown', (e) => setVelocities(e))
 startOrResetButton.addEventListener('click', (e) => handleStartOrResetButtonClick(e))
 closeInstructionsButton.addEventListener('click', (e) => handleCloseInstructionsButtonClick(e))
