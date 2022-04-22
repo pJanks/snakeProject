@@ -16,7 +16,7 @@ const finalScore = document.querySelector('.final-score')
 
 
 snakeboard.addEventListener('keydown', (e) => setVelocities(e))
-startOrResetButton.addEventListener('click', (e) => HandleStartOrResetButtonClick(e))
+startOrResetButton.addEventListener('click', (e) => handleStartOrResetButtonClick(e))
 closeInstructionsButton.addEventListener('click', (e) => handleCloseInstructionsButtonClick(e))
 viewInstructionsButton.addEventListener('click', (e) => handleInstructionsButtonClick(e))
 
@@ -95,7 +95,7 @@ const getInitialSnake = () => [
   {x: 260, y: 180},
 ]
 
-// use copy for game so that original state is unchanged and can on reset
+// use copy for game so that original state is unchanged on reset
 let snakeCopy = getInitialSnake()
 
 // horizontal velocity, snake begins moving at ten pixels to the right
@@ -142,7 +142,7 @@ snakeBoard.addEventListener('blur', () => {
 })
 
 // reset everything for reset or initial start of game
-const HandleStartOrResetButtonClick = (e) => {
+const handleStartOrResetButtonClick = (e) => {
 
   // reset timing
   interval ? clearInterval(interval) : null
