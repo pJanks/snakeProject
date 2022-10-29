@@ -1,22 +1,20 @@
-console.log('scripts made it . . .')
-
 // board dimensions are 600px x 350px
 // each snake piece is 10px x 10px
 
 // query select DOM elements
-const snakeboard = document.querySelector('.snake-game-canvas')
-const startOrResetButton = document.querySelector('.start-or-reset-game-button')
-const closeInstructionsButton = document.querySelector('.close-instructions-button')
-const viewInstructionsButton = document.querySelector('.view-instructions-button')
-const instructionsModal = document.querySelector('.game-instructions-modal')
-const gameOverModal = document.querySelector('.game-over-modal')
-const finalScore = document.querySelector('.final-score')
+const snakeboard = document.querySelector('.snake-game-canvas');
+const startOrResetButton = document.querySelector('.start-or-reset-game-button');
+const closeInstructionsButton = document.querySelector('.close-instructions-button');
+const viewInstructionsButton = document.querySelector('.view-instructions-button');
+const instructionsModal = document.querySelector('.game-instructions-modal');
+const gameOverModal = document.querySelector('.game-over-modal');
+const finalScore = document.querySelector('.final-score');
 
 // add event listeners
-snakeboard.addEventListener('keydown', (e) => setVelocities(e))
-startOrResetButton.addEventListener('click', (e) => handleStartOrResetButtonClick(e))
-closeInstructionsButton.addEventListener('click', (e) => handleCloseInstructionsButtonClick(e))
-viewInstructionsButton.addEventListener('click', (e) => handleInstructionsButtonClick(e))
+snakeboard.addEventListener('keydown', (e) => setVelocities(e));
+startOrResetButton.addEventListener('click', (e) => handleStartOrResetButtonClick(e));
+closeInstructionsButton.addEventListener('click', (e) => handleCloseInstructionsButtonClick(e));
+viewInstructionsButton.addEventListener('click', (e) => handleInstructionsButtonClick(e));
 
 // declare empty variables to determine different states of gameplay
 let running = false,
@@ -33,7 +31,7 @@ minutes = 0,
 seconds = 0,
 pillXValue,
 pillYValue,
-interval
+interval;
 
 // create and print a table to the console of all default settings onload
 const tableObject = {
