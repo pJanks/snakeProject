@@ -271,6 +271,9 @@ const moveSnake = () => {
   // variable describing where the snake will be next
   const head = { x: snakeCopy[0].x + xVelocity, y: snakeCopy[0].y + yVelocity };
 
+    // check to see if the snake collided with itself
+    checkForTailCollision(head);
+
     // if the snake collides with a pill, randomly generate another one
     if (checkForPillCollision(head)) {
       populatePill();
