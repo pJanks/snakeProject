@@ -227,7 +227,6 @@ const handleCloseInstructionsButtonClick = (e) => instructionsModal.classList.ad
 // toggle instructions on/off on instructions button click
 const handleInstructionsButtonClick = (e) => instructionsModal.classList.contains('hidden') ? instructionsModal.classList.remove('hidden') : instructionsModal.classList.add ('hidden');
 
-
 // reset to blank canvas
 const clearCanvas = () => {
   
@@ -390,7 +389,6 @@ const checkForPillCollision = (head) => {
     console.table(tableObject);
     return true;
   }
-  return false;
 }
 
 // assess if snake has collided with itself
